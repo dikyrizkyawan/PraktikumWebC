@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Calculator</title>
+    <style>
+      input {
+        height: 20px;
+        font-size: 14px;
+      }
+
+      .button {
+        height: 30px;
+        width: 30px;
+        margin-left: 5px;
+      }
+      .clr {
+        height: 30px;
+        width: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <h4>Kalkulator</h4>
+      <form name="form">
+        <table>
+          <tbody>
+            <tr>
+              <td><label for="bil1">Bil. 1 </label></td>
+              <td><input type="text" id="bil1" name="bil1" /></td>
+              <td>
+                <input
+                  type="button"
+                  class="button"
+                  onclick="javascript:kalkulator(1)"
+                  value="+"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="bil2">Bil. 2 </label></td>
+              <td><input type="text" id="bil2" name="bil2" /></td>
+              <td>
+                <input
+                  type="button"
+                  class="button"
+                  onclick="javascript:kalkulator(2)"
+                  value="-"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="hasil">Hasil </label></td>
+              <td><input type="text" id="hasil" name="hasil" readonly /></td>
+              <td>
+                <input
+                  type="button"
+                  class="button"
+                  onclick="javascript:kalkulator(3)"
+                  value="*"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td align="right"><input type="reset" value="C" class="clr" /></td>
+              <td>
+                <input
+                  type="button"
+                  class="button"
+                  onclick="javascript:kalkulator(4)"
+                  value="/"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </center>
+    <script>
+        var bil1, bil2, hasil;
+        function getValue() {
+          bil1 = parseFloat(document.form.bil1.value);
+          bil2 = parseFloat(document.form.bil2.value);
+          if ((isNaN(bil1), isNaN(bil2))) {
+            alert("Bil. 1 atau Bil. 2 kosong atau bukan angka!");
+          } else {
+            return true;
+          }
+        }
+        function kalkulator(operasi) {
+          switch(operasi) {
+            case 1:
+              tambah();
+              break;
+            case 2:
+              kurang();
+              break;
+            case 3:
+              kali();
+              break;
+            case 4:
+              bagi();
+              break;
+          }
+        }
+        function tambah() {
+          if (getValue()) {
+            var hasil = bil1 + bil2;
+            document.form.hasil.value = hasil;
+          }
+        }
+        function kurang() {
+          if (getValue()) {
+            var hasil = bil1 - bil2;
+            document.form.hasil.value = hasil;
+          }
+        }
+        function kali() {
+          if (getValue()) {
+            var hasil = bil1 * bil2;
+            document.form.hasil.value = hasil;
+          }
+        }
+        function bagi() {
+          if (getValue()) {
+            var hasil = bil1 / bil2;
+            document.form.hasil.value = hasil;
+          }
+        }
+      </script>
+  </body>
+</html>
