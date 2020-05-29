@@ -12,61 +12,55 @@ if (isset($_POST["login_btn"])) {
   if ($data) {
     $_SESSION["login"] = true;
     $_SESSION['username'] = $_POST['username'];
-    $_SESSION['nama'] = $data['nama'];
     $_SESSION['role'] = $data['role'];
+    $_SESSION['nama'] = $data['nama'];
     header("location:beranda.php");
   }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modul 12 Session</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
-<body style="background-color:white"><br><br><br>
-<fieldset style="width: 10%; margin: auto; border: 1px solid;">
-    <legend>Login</legend>
-    <form action="" method="POST">
-    <table border="0" align="center">
-        <tr>
-            <td>Username</td>
-            <td>:</td><td><input type="text" name="username" size="20" placeholder="Username"></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td>:</td><td><input type="password" name="password" size="20" placeholder="Password"></td>
-        </tr>
-        <tr>
-            <td></td><td></td><td><input type="submit" name="login_btn" Value="Login"></td>
-        </tr>
-    </table>
-    </form>
-</fieldset>
-<br>
-<fieldset style="width: 10%; margin: auto; border: 1px solid;">
-    <legend>Akun Demo</legend>
-    <table border="0" align="center">
-        <tr>
-            <td>Username</td>
-            <td>:</td><td>1708561055</td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td>:</td><td>diky</td>
-        </tr>
-        <tr><td><hr></td></tr>
-        <tr>
-            <td>Username</td>
-            <td>:</td><td>dosen</td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td>:</td><td>dosen</td>
-        </tr>
-    </table>
-</fieldset>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Page Title - SB Admin</title>
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="bg-dark">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-body">
+                                        <form action="" method="POST">
+                                            <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Username</label><input class="form-control py-4" name="username" type="text" placeholder="Enter Username" /></div>
+                                            <div class="form-group"><label class="small mb-1" for="inputPassword">Password</label><input class="form-control py-4" name="password" type="password" placeholder="Enter password" /></div>
+                                            
+                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><input class="btn btn-primary" name="login_btn" type="submit" value="Login"> </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <div class="small"><a href="regis_mhs.php">Daftar Mahasiswa</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+    </body>
 </html>
