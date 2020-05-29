@@ -4,14 +4,23 @@ if( !isset($_SESSION["login"])) {
     header("Location: index.php");
 }
 
-if ($_SESSION['role'] == "Dosen") {
-    header("Location: d_kuliah.php");
+if ($_SESSION['role'] == "Mahasiswa") {
+    header("Location: m_kuliah.php");
 }
 
-$role = $_SESSION["role"];
-$username = $_SESSION["username"];
-$query = mysqli_query($koneksi, "SELECT * FROM krs INNER JOIN matkul ON krs.kode_matkul = matkul.kode_matkul where username = '$username'");
+$id = $_GET['id_kelas'];
+$query = mysqli_query($koneksi, "SELECT * FROM kelas WHERE id = '$id'");
+$data = mysqli_fetch_assoc($query);
 
+if(isset($_POST["editbtn"])) {
+    $status = $_POST["status"];
+    $query = "UPDATE kelas SET status = '$status' WHERE id = '$id'";
+    $exe = mysqli_query($koneksi, $query);
+    echo "<script>
+            document.location.href = 'a_kelas.php';
+            alert('Data Berhasil Diupdate!');
+         </script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,32 +55,24 @@ $query = mysqli_query($koneksi, "SELECT * FROM krs INNER JOIN matkul ON krs.kode
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
-                        <div class="nav">
+                    <div class="nav">
                             <br>
                             <a class="nav-link" href="beranda.php"
                                 ><div class="sb-nav-link-icon"></div>Homepage</a>
                             <br>
-                            <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
-                            <a class="nav-link" href="m_kuliah.php"
+                            <a class="nav-link" href="dashboard.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 KRS</a>
-                            <?php } if($role == 'Dosen' || $role == 'Admin'){?>
-                            <a class="nav-link" href="d_kuliah.php"
+                            <a class="nav-link" href="a_kelas.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Kelas</a>
-                            <?php } ?>
-                            <a class="nav-link" href="m_dosen.php"
+                            <a class="nav-link" href="a_dosen.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Dosen</a>
-                                <a class="nav-link active" href="m_mhs.php"
+                            <a class="nav-link" href="a_mhs.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Mahasiswa</a>
-                                <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
-                            <a class="nav-link" href="m_kelas.php"
-                                ><div class="sb-nav-link-icon"></i></div>
-                                Daftar Kelas</a>
-                                <?php } ?>
-                            <a class="nav-link" href="m_bimbingan.php"
+                            <a class="nav-link" href="a_bimbingan.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Bimbingan</a>
                         </div>
@@ -85,41 +86,22 @@ $query = mysqli_query($koneksi, "SELECT * FROM krs INNER JOIN matkul ON krs.kode
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">KRS Mahasiswa</h1>
+                        <h1 class="mt-4">Edit Dosen</h1>
                         <div class="card mb-4">
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Kode</th>
-                                                <th>Mata Kuliah</th>
-                                                <th>Jumlah SKS</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1;
-                                             while ($data = mysqli_fetch_assoc($query)) { ?>
-                                            <tr>
-                                                <td><?= $i ?></td>
-                                                <td><?= $data['kode_matkul']?></td>
-                                                <td><?= $data['matkul']?></td>
-                                                <td><?= $data['sks']?></td>
-                                                <td><?php if($data['status'] == 1){
-                                                            echo "Disetujui";}
-                                                          elseif ($data['status'] == 0){
-                                                            echo "Ditinjau";}
-                                                ?></td>
-                                            </tr>
-                                            <?php $i++; } ?>
-                                        </tbody>
-                                    </table>
+                            <form form action="" method="POST">
+                                <div class="form-group ml-4 ">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select name="status" id="status" class="form-control col-sm-3">
+                                    <option value="<?= $data['status']; ?>"><?= $data['status']; ?></option>
+                                            <option value="Aktif">Aktif</option>
+                                            <option value="Non-Aktif">Non-Aktif</option>
+                                    </select>
                                 </div>
+                                <input type="submit" name="editbtn" id="editbtn" class="btn btn-primary ml-4 mb-3" value="Edit Kelas">
+                            </form>
                             </div>
                         </div>
-                        <a class="btn btn-primary" href="m_krstambah.php">Tambah Mata Kuliah</a>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
