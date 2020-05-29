@@ -59,7 +59,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM kelas inner join matkul on kelas.
                             <a class="nav-link" href="m_dosen.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Dosen</a>
-                                <a class="nav-link active" href="m_mhs.php"
+                                <a class="nav-link" href="m_mhs.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Mahasiswa</a>
                                 <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>

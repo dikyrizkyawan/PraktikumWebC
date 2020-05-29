@@ -42,32 +42,24 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
-                        <div class="nav">
+                    <div class="nav">
                             <br>
                             <a class="nav-link" href="beranda.php"
                                 ><div class="sb-nav-link-icon"></div>Homepage</a>
                             <br>
-                            <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
-                            <a class="nav-link" href="m_kuliah.php"
+                            <a class="nav-link" href="dashboard.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 KRS</a>
-                            <?php } if($role == 'Dosen' || $role == 'Admin'){?>
-                            <a class="nav-link" href="d_kuliah.php"
+                            <a class="nav-link" href="a_kelas.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Kelas</a>
-                            <?php } ?>
-                            <a class="nav-link" href="m_dosen.php"
+                            <a class="nav-link" href="a_dosen.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Dosen</a>
-                                <a class="nav-link" href="m_mhs.php"
+                            <a class="nav-link" href="a_mhs.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Mahasiswa</a>
-                                <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
-                            <a class="nav-link" href="m_kelas.php"
-                                ><div class="sb-nav-link-icon"></i></div>
-                                Daftar Kelas</a>
-                                <?php } ?>
-                            <a class="nav-link" href="m_bimbingan.php"
+                            <a class="nav-link" href="a_bimbingan.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Bimbingan</a>
                         </div>
@@ -91,6 +83,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
                                                 <th>No</th>
                                                 <th>Nama</th>
                                                 <th>Email</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -100,6 +93,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
                                                 <td><?= $i ?></td>
                                                 <td><?= $data['nama']?></td>
                                                 <td><?= $data['email']?></td>
+                                                <td><a href="a_dosenedit.php?id_dosen=<?= $data['username']; ?>" class="badge badge-primary ">Edit</a></td>
                                             </tr>
                                             <?php $i++; } ?>
                                         </tbody>

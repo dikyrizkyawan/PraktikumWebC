@@ -4,9 +4,15 @@ if( !isset($_SESSION["login"])) {
     header("Location: index.php");
 }
 
-$role = $_SESSION['role'];
+if ($_SESSION['role'] == "Dosen") {
+    header("Location: d_kuliah.php");
+}
+elseif ($_SESSION['role'] == "Mahasiswa") {
+    header("Location: m_kuliah.php");
+}
+
 $username = $_SESSION["username"];
-$query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order by nama asc");
+$query = mysqli_query($koneksi, "SELECT * FROM kelas");
 
 ?>
 
@@ -47,27 +53,19 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
                             <a class="nav-link" href="beranda.php"
                                 ><div class="sb-nav-link-icon"></div>Homepage</a>
                             <br>
-                            <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
-                            <a class="nav-link" href="m_kuliah.php"
+                            <a class="nav-link" href="dashboard.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 KRS</a>
-                            <?php } if($role == 'Dosen' || $role == 'Admin'){?>
-                            <a class="nav-link" href="d_kuliah.php"
+                            <a class="nav-link" href="a_kelas.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Kelas</a>
-                            <?php } ?>
-                            <a class="nav-link" href="m_dosen.php"
+                            <a class="nav-link" href="a_dosen.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Dosen</a>
-                                <a class="nav-link" href="m_mhs.php"
+                            <a class="nav-link" href="a_mhs.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Mahasiswa</a>
-                                <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
-                            <a class="nav-link" href="m_kelas.php"
-                                ><div class="sb-nav-link-icon"></i></div>
-                                Daftar Kelas</a>
-                                <?php } ?>
-                            <a class="nav-link" href="m_bimbingan.php"
+                            <a class="nav-link" href="a_bimbingan.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Bimbingan</a>
                         </div>
@@ -81,7 +79,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Daftar Dosen</h1>
+                        <h1 class="mt-4">Kelas</h1>
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -89,8 +87,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama</th>
-                                                <th>Email</th>
+                                                <th>Nama Kelas</th>
+                                                <th>Kode Matkul</th>
+                                                <th>Kuota</th>
+                                                <th>Status</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -98,8 +99,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
                                              while ($data = mysqli_fetch_assoc($query)) { ?>
                                             <tr>
                                                 <td><?= $i ?></td>
-                                                <td><?= $data['nama']?></td>
-                                                <td><?= $data['email']?></td>
+                                                <td><?= $data['kelas']?></td>
+                                                <td><?= $data['kode_matkul']?></td>
+                                                <td><?= $data['kuota']?></td>
+                                                <td><?= $data['status']?></td>
+                                                <td><a href="a_kelasedit.php?id_kelas=<?= $data['id']; ?>" class="badge badge-primary ">Edit</a></td>
                                             </tr>
                                             <?php $i++; } ?>
                                         </tbody>

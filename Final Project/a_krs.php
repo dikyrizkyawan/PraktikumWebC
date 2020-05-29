@@ -66,16 +66,13 @@ if(isset($_POST["editbtn"])) {
                             <a class="nav-link" href="a_kelas.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Kelas</a>
-                            <a class="nav-link" href="m_dosen.php"
+                            <a class="nav-link" href="a_dosen.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Dosen</a>
-                            <a class="nav-link" href="m_mhs.php"
+                            <a class="nav-link" href="a_mhs.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Mahasiswa</a>
-                            <a class="nav-link" href="m_kelas.php"
-                                ><div class="sb-nav-link-icon"></i></div>
-                                Daftar Kelas</a>
-                            <a class="nav-link" href="m_bimbingan.php"
+                            <a class="nav-link" href="a_bimbingan.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Bimbingan</a>
                         </div>
@@ -101,7 +98,7 @@ if(isset($_POST["editbtn"])) {
                                             <option value="0">Ditinjau</option>
                                     </select>
                                 </div>
-                                <input type="submit" name="editbtn" id="editbtn" class="btn btn-primary ml-4 mb-3" value="Edit Kelas">
+                                <input type="submit" name="editbtn" id="editbtn" class="btn btn-primary ml-4 mb-3" value="Edit KRS">
                             </form>
                             </div>
                         </div>
