@@ -50,18 +50,26 @@ $query = mysqli_query($koneksi, "SELECT * FROM krs INNER JOIN matkul ON krs.kode
                             <a class="nav-link" href="beranda.php"
                                 ><div class="sb-nav-link-icon"></div>Homepage</a>
                             <br>
-                            <a class="nav-link active" href="m_kuliah.php"
+                            <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
+                            <a class="nav-link" href="m_kuliah.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 KRS</a>
+                            <?php } if($role == 'Dosen' || $role == 'Admin'){?>
+                            <a class="nav-link" href="d_kuliah.php"
+                                ><div class="sb-nav-link-icon"></i></div>
+                                Kelas</a>
+                            <?php } ?>
                             <a class="nav-link" href="m_dosen.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Dosen</a>
-                            <a class="nav-link" href="m_mhs.php"
+                                <a class="nav-link active" href="m_mhs.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Mahasiswa</a>
+                                <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
                             <a class="nav-link" href="m_kelas.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Kelas</a>
+                                <?php } ?>
                             <a class="nav-link" href="m_bimbingan.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Bimbingan</a>

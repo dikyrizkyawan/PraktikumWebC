@@ -4,9 +4,15 @@ if( !isset($_SESSION["login"])) {
     header("Location: index.php");
 }
 
-$role = $_SESSION['role'];
+if ($_SESSION['role'] == "Dosen") {
+    header("Location: d_kuliah.php");
+}
+elseif ($_SESSION['role'] == "Mahasiswa") {
+    header("Location: m_kuliah.php");
+}
+
 $username = $_SESSION["username"];
-$query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order by nama asc");
+$query = mysqli_query($koneksi, "SELECT * FROM krs INNER JOIN matkul ON krs.kode_matkul = matkul.kode_matkul");
 
 ?>
 
@@ -47,26 +53,21 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
                             <a class="nav-link" href="beranda.php"
                                 ><div class="sb-nav-link-icon"></div>Homepage</a>
                             <br>
-                            <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
-                            <a class="nav-link" href="m_kuliah.php"
+                            <a class="nav-link active" href="dashboard.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 KRS</a>
-                            <?php } if($role == 'Dosen' || $role == 'Admin'){?>
-                            <a class="nav-link" href="d_kuliah.php"
+                            <a class="nav-link" href="a_kelas.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Kelas</a>
-                            <?php } ?>
                             <a class="nav-link" href="m_dosen.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Dosen</a>
-                                <a class="nav-link active" href="m_mhs.php"
+                            <a class="nav-link" href="m_mhs.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Mahasiswa</a>
-                                <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
                             <a class="nav-link" href="m_kelas.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Kelas</a>
-                                <?php } ?>
                             <a class="nav-link" href="m_bimbingan.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Bimbingan</a>
@@ -81,7 +82,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Daftar Dosen</h1>
+                        <h1 class="mt-4">KRS Mahasiswa</h1>
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -89,8 +90,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama</th>
-                                                <th>Email</th>
+                                                <th>Kode</th>
+                                                <th>Mata Kuliah</th>
+                                                <th>Jumlah SKS</th>
+                                                <th>Status</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -98,8 +102,15 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
                                              while ($data = mysqli_fetch_assoc($query)) { ?>
                                             <tr>
                                                 <td><?= $i ?></td>
-                                                <td><?= $data['nama']?></td>
-                                                <td><?= $data['email']?></td>
+                                                <td><?= $data['kode_matkul']?></td>
+                                                <td><?= $data['matkul']?></td>
+                                                <td><?= $data['sks']?></td>
+                                                <td><?php if($data['status'] == 1){
+                                                            echo "Disetujui";}
+                                                          elseif ($data['status'] == 0){
+                                                            echo "Ditinjau";}
+                                                ?></td>
+                                                <td><a href="a_krs.php?id_krs=<?= $data['id']; ?>" class="badge badge-primary ">Edit</a></td>
                                             </tr>
                                             <?php $i++; } ?>
                                         </tbody>
@@ -107,6 +118,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
                                 </div>
                             </div>
                         </div>
+                        <a class="btn btn-primary" href="m_krstambah.php">Tambah Mata Kuliah</a>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

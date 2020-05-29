@@ -4,10 +4,23 @@ if( !isset($_SESSION["login"])) {
     header("Location: index.php");
 }
 
-$role = $_SESSION['role'];
-$username = $_SESSION["username"];
-$query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order by nama asc");
+if ($_SESSION['role'] == "Mahasiswa") {
+    header("Location: m_kuliah.php");
+}
 
+$id = $_GET['id_krs'];
+$query = mysqli_query($koneksi, "SELECT * FROM krs WHERE id = '$id'");
+$data = mysqli_fetch_assoc($query);
+
+if(isset($_POST["editbtn"])) {
+    $status = $_POST["status"];
+    $query = "UPDATE krs SET status = '$status' WHERE id = '$id'";
+    $exe = mysqli_query($koneksi, $query);
+    echo "<script>
+            document.location.href = 'dashboard.php';
+            alert('Data Berhasil Diupdate!');
+         </script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -47,26 +60,21 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
                             <a class="nav-link" href="beranda.php"
                                 ><div class="sb-nav-link-icon"></div>Homepage</a>
                             <br>
-                            <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
-                            <a class="nav-link" href="m_kuliah.php"
+                            <a class="nav-link active" href="dashboard.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 KRS</a>
-                            <?php } if($role == 'Dosen' || $role == 'Admin'){?>
-                            <a class="nav-link" href="d_kuliah.php"
+                            <a class="nav-link" href="a_kelas.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Kelas</a>
-                            <?php } ?>
                             <a class="nav-link" href="m_dosen.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Dosen</a>
-                                <a class="nav-link active" href="m_mhs.php"
+                            <a class="nav-link" href="m_mhs.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Mahasiswa</a>
-                                <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
                             <a class="nav-link" href="m_kelas.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Kelas</a>
-                                <?php } ?>
                             <a class="nav-link" href="m_bimbingan.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Bimbingan</a>
@@ -81,30 +89,20 @@ $query = mysqli_query($koneksi, "SELECT * FROM user where role = 'dosen' order b
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Daftar Dosen</h1>
+                        <h1 class="mt-4">Edit KRS</h1>
                         <div class="card mb-4">
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama</th>
-                                                <th>Email</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1;
-                                             while ($data = mysqli_fetch_assoc($query)) { ?>
-                                            <tr>
-                                                <td><?= $i ?></td>
-                                                <td><?= $data['nama']?></td>
-                                                <td><?= $data['email']?></td>
-                                            </tr>
-                                            <?php $i++; } ?>
-                                        </tbody>
-                                    </table>
+                            <form form action="" method="POST">
+                                <div class="form-group ml-4 ">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select name="status" id="status" class="form-control col-sm-3">
+                                        <option value="">Status</option>
+                                            <option value="1">Disetujui</option>
+                                            <option value="0">Ditinjau</option>
+                                    </select>
                                 </div>
+                                <input type="submit" name="editbtn" id="editbtn" class="btn btn-primary ml-4 mb-3" value="Edit Kelas">
+                            </form>
                             </div>
                         </div>
                     </div>

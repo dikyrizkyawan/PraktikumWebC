@@ -47,11 +47,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM kelas inner join matkul on kelas.
                             <a class="nav-link" href="beranda.php"
                                 ><div class="sb-nav-link-icon"></div>Homepage</a>
                             <br>
-                            <?php if($role == 'Mahasiswa'){?>
+                            <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
                             <a class="nav-link" href="m_kuliah.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 KRS</a>
-                            <?php } elseif($role == 'Dosen'){?>
+                            <?php } if($role == 'Dosen' || $role == 'Admin'){?>
                             <a class="nav-link" href="d_kuliah.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Kelas</a>
@@ -59,10 +59,10 @@ $query = mysqli_query($koneksi, "SELECT * FROM kelas inner join matkul on kelas.
                             <a class="nav-link" href="m_dosen.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Dosen</a>
-                            <a class="nav-link" href="m_mhs.php"
-                                    ><div class="sb-nav-link-icon"></i></div>
-                                    Daftar Mahasiswa</a>
-                                <?php if($role == 'Mahasiswa'){?>
+                                <a class="nav-link active" href="m_mhs.php"
+                                ><div class="sb-nav-link-icon"></i></div>
+                                Daftar Mahasiswa</a>
+                                <?php if($role == 'Mahasiswa' || $role == 'Admin'){?>
                             <a class="nav-link" href="m_kelas.php"
                                 ><div class="sb-nav-link-icon"></i></div>
                                 Daftar Kelas</a>

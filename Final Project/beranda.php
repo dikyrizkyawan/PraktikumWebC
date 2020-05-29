@@ -18,7 +18,11 @@ elseif ($_SESSION['role'] == "Dosen") {
     $username = $_SESSION["username"];
     $query = mysqli_query($koneksi, "SELECT * FROM user where username = '$username'");
     $data = mysqli_fetch_assoc($query);
-} 
+}
+elseif ($_SESSION['role'] == "Admin") {
+  $role = $_SESSION['role'];
+  header("Location: dashboard.php");
+}  
 ?>
 
 <!DOCTYPE html>
